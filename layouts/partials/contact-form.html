@@ -5,21 +5,23 @@
       <h2>{{ .title }}</h2>
       <p>{{ .message | markdownify }}</p>
       {{ end }}
-    </div>
-    <form name="contact-form" netlify-honeypot="_gotcha" action="thank-you" netlify>
+	</div>
+	{{ with .Site.Params.contact }}
+	<form name="contact-form" action="https://getform.io/f/{{ .getformApiKey }}" method="POST">
+	{{ end }}
       <div class="row">
 	<div class="col-md-6">
 	  <div class="form-group">
 	    <!-- <label for="inputName">First name</label> -->
 		  {{ with .Site.Params.contact }}
-	    <input type="text" class="form-control" id="inputName" placeholder="{{ .name_placeholder }}" name="_name">
+	    <input type="text" class="form-control" id="inputName" placeholder="{{ .name_placeholder }}" name="name">
 		  {{ end }}
 	  </div>
 	</div>
 	<div class="col-md-6">
 	  <div class="form-group">
 			{{ with .Site.Params.contact }}
-	    <input type="email" class="form-control" id="inputEmail" placeholder="{{ .email_placeholder }}" name="_replyto" required>
+	    <input type="email" class="form-control" id="inputEmail" placeholder="{{ .email_placeholder }}" name="email" required>
 	    <small id="emailHelp" class="form-text text-muted">{{ .email_disclaimer }}</small>
 		  {{ end }}
 	  </div>
